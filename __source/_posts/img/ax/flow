@@ -1,0 +1,41 @@
+# PlantUML 语法
+
+@startuml
+start
+:把起始节点加入开启列表;
+repeat
+:寻找开启列表中F值最低的节点。我们称它为当前节点;
+:把它移到关闭列表。;
+:对它相邻节点每一个;
+partition " 相邻节点 " {
+if (是否可以通过) then (否)
+:略过;
+else (否)
+if (是否在关闭列表中) then (是)
+:略过;
+else (否)
+if (是否在开启列表中) then (否)
+:把它加入开启列表，把这一节点作为相邻节点的父节点;
+:记录这一节点的F，G和H值。;
+else (是)
+if (G值更低，路径更优) then (否)
+:略过;
+else (更优)
+:把这一节点的父节点改成当前的相邻接点;
+:重新计算G,H值,按需要根据F值排序;
+endif
+endif
+endif
+endif
+}
+if (目标节点被加入关闭列表？) then (是)
+:找到路径;
+stop
+endif
+if (检查开启列表) then (空)
+:没有找到路径;
+stop
+endif
+repeat while (没有到目标节点)
+
+@enduml
